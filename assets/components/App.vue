@@ -1,7 +1,10 @@
 <template>
    <div class="container-fluid vh-100 d-flex flex-column bg-primary bg-info">
      <NavBar></NavBar>
-     <Panel></Panel>
+
+     <div class="row flex-grow-1 justify-content-center">
+       <Panel class="h-85 w-70"></Panel>
+     </div>
    </div>
 </template>
 
@@ -21,11 +24,15 @@
 <style>
 .bg-primary
 {
-  background-color: #002D37 !important;
+  background: linear-gradient(350deg, rgba(242,242,242,1) 50%, rgba(0,45,55,1) 50.15%); /* Commence le deuxième à +0.15 pour enlever l'effet d'aliasing */
 }
 
-.bg-secondary{
-  background-color: #689D9A !important;
+.w-70{
+  width: 70% !important;
+}
+
+.h-85{
+  height: 85% !important;
 }
 
 </style>

@@ -22,14 +22,15 @@ import '../popper.min.js'
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
+// assets/js/app.js
+import Vue from 'vue';
+
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
 
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 
-// assets/js/app.js
-import Vue from 'vue';
 
 import App from '../components/App'
 
@@ -40,4 +41,3 @@ new Vue({
     el: '#app',
     components: {App}
 });
-
