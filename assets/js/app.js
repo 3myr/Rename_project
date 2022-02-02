@@ -8,6 +8,9 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import '../styles/app.css';
 
+// JQuery
+import '../jquery-3.2.1.slim.min.js'
+const $ = require('jquery');
 
 // start the Stimulus application
 import '../bootstrap';
@@ -16,7 +19,6 @@ import '../bootstrap';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import '../bootstrap.js'
-import '../jquery-3.2.1.slim.min.js'
 import '../bootstrap.min.js'
 import '../popper.min.js'
 

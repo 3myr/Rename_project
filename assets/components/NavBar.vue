@@ -1,7 +1,10 @@
 <template>
   <div class="row">
     <nav class="navbar navbar-light bg-light justify-content-between flex-shrink-0 rounded-bottom">
-      <a href="/" class="navbar-brand">Calorie</a>
+      <a href="/" class="navbar-brand">
+        <!--<img src="assets/images/calories.png"/>-->
+        Calorie
+      </a>
       <a href="#" class="navbar-brand">Connexion</a>
     </nav>
   </div>

@@ -8,15 +8,16 @@
 <script>
   import LeftPanel from "./LeftPanel.vue"
   import Rightpanel from "./RightPanel";
+  import Test from "./Test";
 
-   export default {
-       name: "panel",
-     components: {
-       Rightpanel,
-       'LeftPanel':LeftPanel,
-       'RightPanel':Rightpanel
-     }
-   }
+  export default {
+    name: "panel",
+    components: {
+      Test,
+      Rightpanel,
+      LeftPanel
+    }
+  }
 </script>
 
 <style>
