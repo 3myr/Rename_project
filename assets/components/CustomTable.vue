@@ -1,7 +1,6 @@
 <template>
   <!-- TODO Revoir le css car si le tableau est trop rempli, il agrandi le Panneau -->
-  <div>
-    <table class="table h-100">
+    <table class="table h-100" id="tableau">
       <thead class="text-primary" id="entete">
       <tr>
         <th scope="col" class="w-50">Activité</th>
@@ -13,111 +12,43 @@
       </tr>
       </thead>
       <tbody id="contenu">
-      <tr>
-        <td>bicycling, stationary, general</td>
-        <td class="text-center">08:00</td>
-        <td class="text-center">7,5</td>
-        <td class="text-center">8,0</td>
-        <td class="text-center">175,2</td>
-        <td class="text-left"><button class="btn-delete">X</button></td>
-      </tr>
 
-      <tr>
-        <td>bicycling, stationary, general</td>
-        <td class="text-center">08:00</td>
-        <td class="text-center">7,5</td>
+      <tr v-for="(act, key) in activites">
+        <td>{{ act.nom }}</td>
+        <td class="text-center">{{ act.duree }}</td>
+        <td class="text-center">{{ act.met }}</td>
         <td class="text-center">8,0</td>
         <td class="text-center">175,2</td>
-        <td><button class="btn-delete">X</button></td>
-      </tr>
-
-      <tr>
-        <td>bicycling, stationary, general</td>
-        <td class="text-center">08:00</td>
-        <td class="text-center">7,5</td>
-        <td class="text-center">8,0</td>
-        <td class="text-center">175,2</td>
-        <td><button class="btn-delete">X</button></td>
-      </tr>
-
-      <tr>
-        <td>bicycling, stationary, general</td>
-        <td class="text-center">08:00</td>
-        <td class="text-center">7,5</td>
-        <td class="text-center">8,0</td>
-        <td class="text-center">175,2</td>
-        <td><button class="btn-delete">X</button></td>
-      </tr>
-
-      <tr>
-        <td>bicycling, stationary, general</td>
-        <td class="text-center">08:00</td>
-        <td class="text-center">7,5</td>
-        <td class="text-center">8,0</td>
-        <td class="text-center">175,2</td>
-        <td><button class="btn-delete">X</button></td>
-      </tr>
-
-      <tr>
-        <td>bicycling, stationary, general</td>
-        <td class="text-center">08:00</td>
-        <td class="text-center">7,5</td>
-        <td class="text-center">8,0</td>
-        <td class="text-center">175,2</td>
-        <td><button class="btn-delete">X</button></td>
-      </tr>
-
-      <tr>
-        <td>bicycling, stationary, general</td>
-        <td class="text-center">08:00</td>
-        <td class="text-center">7,5</td>
-        <td class="text-center">8,0</td>
-        <td class="text-center">175,2</td>
-        <td><button class="btn-delete">X</button></td>
-      </tr>
-
-      <tr>
-        <td>bicycling, stationary, general</td>
-        <td class="text-center">08:00</td>
-        <td class="text-center">7,5</td>
-        <td class="text-center">8,0</td>
-        <td class="text-center">175,2</td>
-        <td><button class="btn-delete">X</button></td>
-      </tr>
-
-      <tr>
-        <td>bicycling, stationary, general</td>
-        <td class="text-center">08:00</td>
-        <td class="text-center">7,5</td>
-        <td class="text-center">8,0</td>
-        <td class="text-center">175,2</td>
-        <td><button class="btn-delete">X</button></td>
-      </tr>
-
-      <tr>
-        <td>bicycling, stationary, general</td>
-        <td class="text-center">08:00</td>
-        <td class="text-center">7,5</td>
-        <td class="text-center">8,0</td>
-        <td class="text-center">175,2</td>
-        <td><button class="btn-delete">X</button></td>
+        <td><button class="btn-delete" @click="deleteActivites(act.id,key)">X</button></td>
       </tr>
 
       </tbody>
     </table>
-  </div>
 </template>
 
 <script type="application/javascript">
+import axios from "axios";
+
 export default {
   name: "CustomTable",
+  data: () => ({
+    activites : []
+  }),
   created() {
     window.addEventListener("resize", this.resizeTab);
   },
   destroyed() {
     window.removeEventListener("resize", this.resizeTab);
   },
-  mounted() {
+  async mounted() {
+
+    const instance = this
+    this.$root.$on('updateActivity', function(e){
+      instance.updateActivites(e);
+      instance.resizeTab();
+    })
+
+    await this.getActivites();
     this.resizeTab();
   },
   methods: {
@@ -125,8 +56,6 @@ export default {
       var thead = document.getElementById("entete");
       var tbody = document.getElementById("contenu");
       var trhead = thead.children[0].children;
-      console.log(thead);
-      console.log(trhead);
 
       // Parcours toutes les lignes du tableau
       for(var j=0;j<tbody.children.length;j++)
@@ -137,6 +66,27 @@ export default {
           tbody.children[j].children[i].style = 'width: '+(trhead[i].getBoundingClientRect().width)+'px';
         }
       }
+    },
+
+    async getActivites() {
+      let {data} = await axios.get('api/activites')
+      this.activites = data;
+    },
+
+    updateActivites(activite) {
+      this.activites.push(activite)
+      this.$root.$emit('updateValues', this.activites);
+    },
+
+    deleteActivites(id, index)
+    {
+      let activite = {
+        id: id,
+      };
+
+      axios.create().post('api/activites/delActivites', activite).then((response) => {
+        this.activites.splice(index,1);
+      })
     }
   }
 }
@@ -168,7 +118,8 @@ tbody {
   overflow-x: hidden;
   overflow-y: auto;
   scrollbar-width: thin; /* Firefox */
-  height: 90%; /* TODO A changer ? */
+  /*height: 90%;*/ /* TODO A changer ? */
+  height: 400px;
 }
 
 /* ScrollBar */

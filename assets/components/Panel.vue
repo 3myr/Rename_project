@@ -1,7 +1,11 @@
 <template>
     <div class="row panel align-self-center">
         <LeftPanel class="col-3 rounded-left bg-secondary"></LeftPanel>
+
         <Rightpanel class="col-9 rounded-right bg-light"></Rightpanel>
+      <!--
+      <Test class="col-9 rounded-right bg-light"></Test>
+      -->
     </div>
 </template>
 

@@ -21,7 +21,7 @@
 
       <!-- Ajouter activité + separateur + récap -->
       <div class="d-flex flex-column mt-auto footer gap-3">
-        <button class="form-control text-left d-flex flex-row justify-content-between align-items-center" onclick="console.log('Ouvrir Modale');">
+        <button type="button" class="form-control text-left d-flex flex-row justify-content-between align-items-center" data-toggle="modal" data-target="#addActivityModal">
           <span class="text-grey">Ajouter une nouvelle activité</span>
           <span class="text-primary" style="font-weight: bold; font-size: 20px;">+</span>
         </button>
@@ -44,14 +44,36 @@
         </div>
 
       </div>
+      <!--          -->
+
+      <!--   Modal   -->
+      <Modal/>
+      <!--           -->
+
     </div>
 </template>
 
 <script>
 import CustomTable from "./CustomTable";
+import Modal from "./Modal"
 export default {
   name: "rightpanel",
-  components: {CustomTable}
+  components: {
+    CustomTable,
+    Modal
+  },
+  data: () => ({
+    metsPerJ: 0,
+    metsPerJCustom: 0,
+    kcalPerJ: 0
+  }),
+  mounted() {
+    const instance = this
+    this.$root.$on('updateValues', function(activites){
+      // Mettre a jour les valeurs
+    })
+
+  }
 }
 </script>
 

@@ -22,6 +22,9 @@ import '../bootstrap.js'
 import '../bootstrap.min.js'
 import '../popper.min.js'
 
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 // assets/js/app.js
@@ -33,6 +36,8 @@ Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 
+// Axios
+Vue.use(VueAxios, axios)
 
 import App from '../components/App'
 

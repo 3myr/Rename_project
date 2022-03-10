@@ -48,7 +48,19 @@
 
 <script>
 export default {
-  name: "leftpanel"
+  name: "leftpanel",
+  data: () => ({
+    poids: 0,
+    taille: 0,
+    age: 0,
+    gender: true,
+    kcalPerJ: 0
+  }),
+  mounted() {
+    this.$root.$on('updateValues', function(activites) {
+        // Mettre a jour les valeurs
+      })
+    }
 }
 </script>
 
