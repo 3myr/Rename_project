@@ -30,15 +30,15 @@
 
         <div class="d-flex flex-row justify-content-center gap-5">
           <div class="d-flex flex-column align-items-center">
-            <h5 class="text-primary"><b>35,5</b></h5>
+            <h5 class="text-primary"><b>{{ this.metsPerJ }}</b></h5>
             <h6>METs/j</h6>
           </div>
           <div class="d-flex flex-column align-items-center">
-            <h5 class="text-primary"><b>41,2</b></h5>
+            <h5 class="text-primary"><b>{{ this.metsPerJCustom }}</b></h5>
             <h6>METs/j</h6>
           </div>
           <div class="d-flex flex-column align-items-center">
-            <h5 class="text-primary"><b>1583,2</b></h5>
+            <h5 class="text-primary"><b>{{ this.kcalPerJ }}</b></h5>
             <h6>kcal/j</h6>
           </div>
         </div>
@@ -69,10 +69,9 @@ export default {
   }),
   mounted() {
     const instance = this
-    this.$root.$on('updateValues', function(activites){
-      // Mettre a jour les valeurs
+    this.$root.$on('updateKcal', function(kcal){
+      instance.kcalPerJ = kcal;
     })
-
   }
 }
 </script>

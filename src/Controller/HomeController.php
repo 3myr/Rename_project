@@ -27,9 +27,13 @@ class HomeController extends AbstractController
 
         // Récupère les activites stocké dans la variable de session ( obligé de décoder )
         $activites = array();
-        foreach($session->get('activites') as $a)
+
+        if($session->has('activites'))
         {
-            $activites[] = json_decode($a);
+            foreach($session->get('activites') as $a)
+            {
+                $activites[] = json_decode($a);
+            }
         }
 
         return $this->json($activites);

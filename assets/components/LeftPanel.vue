@@ -4,17 +4,17 @@
         <div class="d-flex flex-column gap-5">
           <div>
             <label for="poids" class="text-white" style="font-size: 24px">POIDS</label>
-            <input type="text" class="form-control" id="poids" placeholder="Votre poids ( en kg )">
+            <input type="text" class="form-control" id="poids" @keyup="updatePoids" placeholder="Votre poids ( en kg )">
           </div>
 
           <div>
             <label for="taille" class="text-white" style="font-size: 24px">TAILLE</label>
-            <input type="text" class="form-control" id="taille" placeholder="Votre taille ( en cm )">
+            <input type="text" class="form-control" id="taille" @keyup="updateTaille" placeholder="Votre taille ( en cm )">
           </div>
 
           <div>
             <label for="age" class="text-white" style="font-size: 24px">AGE</label>
-            <input type="text" class="form-control" id="age" placeholder="Votre Age">
+            <input type="text" class="form-control" id="age" @keyup="updateAge" placeholder="Votre Age">
           </div>
 
           <div>
@@ -39,7 +39,7 @@
 
       <div class="text-center text-white d-flex flex-column h-100 align-items-center justify-content-center">
         <h5>DEPENSE ENERGETIQUE</h5>
-        <h2><b>3202,7 kcal/j</b></h2>
+        <h2><b>{{ this.kcalPerJ }} kcal/j</b></h2>
       </div>
 
 
@@ -57,10 +57,33 @@ export default {
     kcalPerJ: 0
   }),
   mounted() {
-    this.$root.$on('updateValues', function(activites) {
-        // Mettre a jour les valeurs
-      })
+  },
+  methods : {
+    updatePoids()
+    {
+      this.poids = parseInt(document.getElementById('poids').value) || 0;
+      this.updateKcal();
+    },
+
+    updateTaille(){
+      this.taille = parseInt(document.getElementById('taille').value) || 0;
+      this.updateKcal();
+    },
+
+    updateAge()
+    {
+      this.age = parseInt(document.getElementById('age').value) || 0;
+      this.updateKcal();
+    },
+
+    updateKcal()
+    {
+      this.kcalPerJ = this.poids+this.taille+this.age;
+
+      // Met a jour la valeur du métabolisme de base
+      this.$root.$emit('updateKcal', this.kcalPerJ);
     }
+  }
 }
 </script>
 
